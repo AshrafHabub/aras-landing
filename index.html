@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Aras GmbH — Kaufmann, DeKaufmann.de, DeSquishy.de</title>
+  <meta name="description" content="Die Aras GmbH bündelt drei Marken: Kaufmann GmbH (Cash & Carry), DeKaufmann.de und DeSquishy.de.">
+  <meta name="theme-color" content="#0b0b0c">
+  <script>
+    /* JS-Gate: Intro, Headline-Animation und Scroll-Reveals gibt es nur, wenn app.js läuft.
+       Ohne JavaScript bleibt <html> ohne .js → alles sofort sichtbar, kein Intro.
+       Läuft app.js nicht binnen 3 s an (z. B. three.js-CDN nicht erreichbar), fällt die
+       Seite auf dieselbe statische Fassung zurück. */
+    document.documentElement.classList.add('js');
+    setTimeout(function () {
+      var d = document.documentElement;
+      if (!d.classList.contains('app-ready')) d.classList.remove('js');
+    }, 3000);
+  </script>
+  <!-- Schriften selbst gehostet (DSGVO: keine Anfrage an Google) -->
+  <link rel="preload" href="assets/fonts/Archivo-Variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Modell früh anfragen, damit es parallel zum Intro lädt -->
+  <link rel="preload" href="assets/squishy.glb" as="fetch" type="model/gltf-binary" crossorigin>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <!-- Intro -->
+  <div class="intro" data-intro aria-hidden="true">
+    <div class="intro__word"><span>A</span><span>R</span><span>A</span><span>S</span></div>
+    <div class="intro__bar"></div>
+  </div>
+
+  <!-- 3D-Bühne: eine einzige WebGL-Fläche für die ganze Seite -->
+  <canvas class="stage" data-stage data-glb="assets/squishy.glb" aria-hidden="true"></canvas>
+
+  <header class="header" data-header>
+    <a class="wordmark" href="#top" aria-label="Aras GmbH, zum Seitenanfang">ARAS<span class="wordmark__dot"></span><span class="wordmark__sub">GMBH</span></a>
+    <a class="pill" href="#marken">Marken <span class="pill__arrow" aria-hidden="true">↓</span></a>
+  </header>
+
+  <main id="top">
+    <!-- Hero -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero__top">
+        <p class="label" style="margin:0">Aras GmbH<br>Groß- &amp; Einzelhandel</p>
+        <p class="label hero__counter" style="margin:0" aria-live="polite">Squish<br><b data-count>×00</b></p>
+      </div>
+
+      <div class="hero__slot" data-anchor="hero">
+        <div class="blob" data-blob></div>
+        <span class="label blob__pct" data-pct>Lädt …</span>
+        <span class="label hero__hint" data-hint>Tipp das Squishy</span>
+      </div>
+
+      <div class="hero__bottom">
+        <h1 class="display hero__title" id="hero-title">
+          <span class="line"><span>Drei Marken.</span></span>
+          <span class="line"><span>Eine Familie<span class="red">.</span></span></span>
+        </h1>
+        <div class="hero__meta">
+          <!-- PLATZHALTER-TEXT: bitte prüfen -->
+          <p class="hero__lede">Die Aras GmbH bündelt Großhandel, Online-Handel und den Squishy-Hype unter einem Dach.</p>
+          <a class="pill pill--red hero__cta" href="#marken">Marken entdecken <span class="pill__arrow" aria-hidden="true">↓</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Laufband -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span class="marquee__item">Cash &amp; Carry <i></i> <span class="outline">Online</span> <i></i> Squishy <i></i> <span class="outline">Dortmund</span> <i></i></span>
+        <span class="marquee__item">Cash &amp; Carry <i></i> <span class="outline">Online</span> <i></i> Squishy <i></i> <span class="outline">Dortmund</span> <i></i></span>
+      </div>
+    </div>
+
+    <!-- Marken -->
+    <section class="brands" id="marken" aria-labelledby="brands-title">
+      <div class="section-head reveal">
+        <span class="label">03 Marken · 01 Dach</span>
+        <h2 class="display" id="brands-title">Unsere<br>Marken</h2>
+        <!-- PLATZHALTER-TEXT: bitte prüfen -->
+        <p>Das operative Geschäft liegt bei den Gesellschaften. Aras ist das Dach, unter dem sie wachsen.</p>
+      </div>
+
+      <div class="deck" data-deck>
+        <article class="card card--light" style="--i:0" data-card>
+          <span class="card__num" aria-hidden="true">01</span>
+          <div class="card__top"><span class="card__index">01</span><span class="label">Cash &amp; Carry</span></div>
+          <div class="card__mid">
+            <h3 class="display card__name">Kaufmann<small>GmbH</small></h3>
+            <!-- PLATZHALTER-TEXT: bitte prüfen -->
+            <p class="card__text">Großhandel für Gewerbe, Gastronomie und Handel in Dortmund. Vor Ort einkaufen, direkt mitnehmen.</p>
+          </div>
+          <div class="card__bottom">
+            <div class="card__tags"><span class="tag">B2B</span><span class="tag">Dortmund</span></div>
+            <a class="pill pill--solid" href="#kaufmann">Standort <span class="pill__arrow" aria-hidden="true">↗</span></a>
+          </div>
+        </article>
+
+        <article class="card card--dark" style="--i:1" data-card>
+          <span class="card__num" aria-hidden="true">02</span>
+          <div class="card__top"><span class="card__index">02</span><span class="label">Online-Shop</span></div>
+          <div class="card__mid">
+            <h3 class="display card__name">DeKaufmann<small>.de</small></h3>
+            <!-- PLATZHALTER-TEXT: bitte prüfen -->
+            <p class="card__text">Das Kaufmann-Sortiment online. Bestellen, wann es passt.</p>
+          </div>
+          <div class="card__bottom">
+            <div class="card__tags"><span class="tag">Online</span><span class="tag">Lieferung</span></div>
+            <a class="pill pill--solid" href="https://dekaufmann.de" target="_blank" rel="noopener">Zum Shop <span class="pill__arrow" aria-hidden="true">↗</span></a>
+          </div>
+        </article>
+
+        <article class="card card--light" style="--i:2" data-card>
+          <div class="card__top"><span class="card__index">03</span><span class="label">Online-Shop</span></div>
+          <div class="card__mid">
+            <div class="card__slot" data-anchor="squishy" aria-hidden="true"></div>
+            <h3 class="display card__name">DeSquishy<small>.de</small></h3>
+            <!-- PLATZHALTER-TEXT: bitte prüfen -->
+            <p class="card__text">Squishys, die man nicht mehr loslässt. Drück mal drauf.</p>
+          </div>
+          <div class="card__bottom">
+            <div class="card__tags"><span class="tag">Online</span><span class="tag">Trend</span></div>
+            <a class="pill pill--solid" href="https://desquishy.de" target="_blank" rel="noopener">Zum Shop <span class="pill__arrow" aria-hidden="true">↗</span></a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Über -->
+    <section class="about" aria-labelledby="about-title">
+      <span class="label" id="about-title">Über Aras</span>
+      <div style="display:grid;gap:var(--space-6)">
+        <!-- PLATZHALTER-TEXT (Aussage + drei Zellen): bitte prüfen -->
+        <p class="about__text reveal">Ein Dach, drei Wege zum Kunden. <em>Vom Lager in Dortmund bis in den Warenkorb.</em></p>
+        <div class="about__grid reveal">
+          <div class="about__cell"><span class="label">01</span><strong>Vor Ort</strong><span>Cash &amp; Carry für Geschäftskunden.</span></div>
+          <div class="about__cell"><span class="label">02</span><strong>Online</strong><span>Großhandel im Browser.</span></div>
+          <div class="about__cell"><span class="label">03</span><strong>Trend</strong><span>Squishys direkt nach Hause.</span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="display footer__big" aria-hidden="true">ARAS<span class="wordmark__dot"></span></div>
+    <nav class="footer__links" aria-label="Rechtliches">
+      <a href="#impressum">Impressum</a>
+      <a href="#datenschutz">Datenschutz</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+    <p class="footer__legal">© <span data-year>2026</span> Aras GmbH · Groß- und Einzelhandel</p>
+  </footer>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
