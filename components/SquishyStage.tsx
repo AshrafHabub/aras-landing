@@ -177,7 +177,7 @@ export function SquishyStage() {
       /* private mode */
     }
     let modelSize = 2.6;
-    let dpr = Math.min(window.devicePixelRatio || 1, 1.75);
+    let dpr = Math.min(window.devicePixelRatio || 1, 1.5);
     const frameTimes: number[] = [];
     let rendering = true;
     let last = performance.now();
@@ -233,6 +233,14 @@ export function SquishyStage() {
       }
     }
 
+    const dirty = { x0: 0, y0: 0, x1: 0, y1: 0 };
+    function markAllDirty() {
+      dirty.x0 = 0;
+      dirty.y0 = 0;
+      dirty.x1 = canvas.clientWidth;
+      dirty.y1 = canvas.clientHeight;
+    }
+
     function resize() {
       if (!renderer || !camera) return;
       const width = canvas.clientWidth;
@@ -240,6 +248,7 @@ export function SquishyStage() {
       renderer.setSize(width, height, false);
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
+      markAllDirty();
     }
 
     function anchorToWorld(rect: DOMRect, out: import("three").Vector3) {
@@ -611,10 +620,35 @@ export function SquishyStage() {
         Math.abs(pivot.position.y) < halfH + modelSize * s &&
         Math.abs(pivot.position.x) < halfH * camera.aspect + modelSize * s;
       if (onScreen) {
-        renderer.render(scene, camera);
+        const width = canvas.clientWidth;
+        const height = canvas.clientHeight;
+        const ppu = height / (2 * halfH);
+        const cx = width / 2 + pivot.position.x * ppu;
+        const cy = height / 2 - pivot.position.y * ppu;
+        const r = modelSize * s * ppu * 0.9 + 8;
+        const next = {
+          x0: Math.max(0, Math.floor(cx - r)),
+          y0: Math.max(0, Math.floor(cy - r)),
+          x1: Math.min(width, Math.ceil(cx + r)),
+          y1: Math.min(height, Math.ceil(cy + r)),
+        };
+        const x0 = Math.min(next.x0, dirty.x0);
+        const y0 = Math.min(next.y0, dirty.y0);
+        const x1 = Math.max(next.x1, dirty.x1);
+        const y1 = Math.max(next.y1, dirty.y1);
+        if (x1 > x0 && y1 > y0) {
+          renderer.setScissor(x0, height - y1, x1 - x0, y1 - y0);
+          renderer.render(scene, camera);
+        }
+        dirty.x0 = next.x0;
+        dirty.y0 = next.y0;
+        dirty.x1 = next.x1;
+        dirty.y1 = next.y1;
         rendering = true;
       } else if (rendering) {
+        renderer.setScissor(0, 0, canvas.clientWidth, canvas.clientHeight);
         renderer.clear();
+        markAllDirty();
         rendering = false;
       }
 
@@ -682,6 +716,7 @@ export function SquishyStage() {
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
       renderer.toneMappingExposure = 1.15;
       renderer.setClearColor(0x000000, 0);
+      renderer.setScissorTest(true);
 
       scene = new THREE.Scene();
       camera = new THREE.PerspectiveCamera(28, 1, 0.1, 100);
