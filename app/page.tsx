@@ -1,4 +1,5 @@
 import { Footer } from "@/components/Footer";
+import { SquishyBadge } from "@/components/SquishyBadge";
 import { StructuredData } from "@/components/StructuredData";
 import { asset } from "@/lib/asset";
 import { company, partners } from "@/lib/site";
@@ -83,6 +84,7 @@ export default function HomePage() {
                   />
                   <span className="partners__text">{p.summary}</span>
                   {p.domain ? <span className="partners__link">{p.domain}</span> : null}
+                  {p.id === "desquishy" ? <SquishyBadge /> : null}
                 </>
               );
               return (

@@ -235,6 +235,30 @@ a {
   color: var(--muted);
 }
 
+.partners__item {
+  position: relative;
+}
+
+.squishy {
+  position: absolute;
+  right: -8px;
+  top: 50%;
+  width: 88px;
+  height: 88px;
+  margin-top: -44px;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.9);
+  transition:
+    opacity 500ms var(--ease-out),
+    transform 500ms var(--ease-out);
+}
+
+.squishy.is-ready {
+  opacity: 1;
+  transform: none;
+}
+
 /* Footer */
 
 .footer {
@@ -377,6 +401,17 @@ a {
   .partners__logo--kaufmann {
     height: 48px;
   }
+
+  .partners__item:has(.squishy) {
+    padding-right: 64px;
+  }
+
+  .squishy {
+    right: -6px;
+    width: 72px;
+    height: 72px;
+    margin-top: -36px;
+  }
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -417,7 +452,8 @@ a {
     animation: none;
   }
 
-  .btn {
+  .btn,
+  .squishy {
     transition: none;
   }
 }

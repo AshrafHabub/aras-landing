@@ -1,4 +1,4 @@
-export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://www.aras-gmbh.de").replace(/\/$/, "");
+export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://www.gmbh-aras.de").replace(/\/$/, "");
 export const NOINDEX = process.env.NEXT_PUBLIC_NOINDEX === "1";
 
 export const company = {
@@ -17,7 +17,7 @@ export const company = {
   country: "DE",
   phone: "+49 176 43477834",
   phoneHref: "tel:+4917643477834",
-  email: "online@dekaufmann.de",
+  email: "info@gmbh-aras.de",
   vatId: "DE452984801",
   register: "Amtsgericht Dortmund, HRB 34954",
   manager: "Hebun Deniz",
