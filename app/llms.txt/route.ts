@@ -1,4 +1,4 @@
-import { SITE_URL, brands, company, faqs } from "@/lib/site";
+import { SITE_URL, company, partners } from "@/lib/site";
 
 export const dynamic = "force-static";
 
@@ -8,22 +8,20 @@ export function GET() {
     "",
     `> ${company.description}`,
     "",
-    "## Marken",
-    "",
-    ...brands.map((b) => `- [${b.name}](${b.url}): ${b.category}. ${b.summary}`),
-    "",
-    "## Standort",
+    "## Kontakt",
     "",
     `- Adresse: ${company.street}, ${company.zip} ${company.city}, Deutschland`,
     `- Telefon: ${company.phone}`,
     `- E-Mail: ${company.email}`,
-    `- Stadtteil: ${company.district}`,
     `- Koordinaten: ${company.geo.lat}, ${company.geo.lng}`,
     `- Google Maps: ${company.mapsCid}`,
     "",
-    "## Häufige Fragen",
+    "## Partner",
     "",
-    ...faqs.flatMap((f) => [`### ${f.q}`, "", f.a, ""]),
+    "Eigenständige Partnerfirmen, nicht Teil der Aras GmbH:",
+    "",
+    ...partners.map((p) => (p.url ? `- [${p.name}](${p.url}): ${p.summary}` : `- ${p.name}: ${p.summary}`)),
+    "",
     "## Unternehmen",
     "",
     `- Rechtsträger: ${company.legalName}`,

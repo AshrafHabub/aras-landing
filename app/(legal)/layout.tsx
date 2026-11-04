@@ -1,14 +1,17 @@
+import Link from "next/link";
 import { Footer } from "@/components/Footer";
-import { Header } from "@/components/Header";
-import { SiteEffects } from "@/components/SiteEffects";
+import { asset } from "@/lib/asset";
 
 export default function LegalLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <div className="theme-light">
-      <SiteEffects />
-      <Header />
-      <main>{children}</main>
+    <>
+      <main className="page page--legal">
+        <Link className="legal__home" href="/" aria-label="Aras GmbH, zur Startseite">
+          <img src={asset("/assets/logos/aras.png")} alt="" width={331} height={246} />
+        </Link>
+        {children}
+      </main>
       <Footer />
-    </div>
+    </>
   );
 }

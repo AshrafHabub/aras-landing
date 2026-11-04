@@ -1,58 +1,54 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { company } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Impressum",
-  description: "Impressum der Kaufmann Dortmund Groß und Einzelhandel GmbH.",
+  description: `Impressum der ${company.name}.`,
   alternates: { canonical: "/impressum" },
 };
 
 export default function ImpressumPage() {
+  const [court, number] = company.register.split(", ");
+
   return (
     <article className="legal">
-      <p className="label">Rechtliches</p>
-      <h1 className="display legal__title">Impressum</h1>
-      <p className="legal__lede">
-        Angaben gemäß § 5 DDG. Diese Seite und die Shops gehören zur Kaufmann Dortmund Groß und Einzelhandel GmbH.
-      </p>
+      <h1 className="legal__title">Impressum</h1>
+      <p className="legal__lede">Angaben gemäß § 5 DDG</p>
 
       <section className="legal__block">
         <h2>Anbieter</h2>
-        <p>Kaufmann Dortmund Groß und Einzelhandel GmbH</p>
-        <p>Groß- und Einzelhandel</p>
-      </section>
-
-      <section className="legal__block">
-        <h2>Anschrift</h2>
-        <p>Eisenhüttenweg 9A</p>
-        <p>44145 Dortmund</p>
-        <p>Deutschland</p>
+        <p>{company.legalName}</p>
+        <p>{company.trade}</p>
+        <p>
+          {company.street}, {company.zip} {company.city}
+        </p>
       </section>
 
       <section className="legal__block">
         <h2>Kontakt</h2>
         <p>
-          Telefon: <a href="tel:+4917643477834">+49 176 43477834</a>
+          Telefon: <a href={company.phoneHref}>{company.phone}</a>
         </p>
         <p>
-          E-Mail: <a href="mailto:online@dekaufmann.de">online@dekaufmann.de</a>
+          E-Mail: <a href={`mailto:${company.email}`}>{company.email}</a>
         </p>
       </section>
 
       <section className="legal__block">
         <h2>Registereintrag</h2>
-        <p>Registergericht: Amtsgericht Dortmund</p>
-        <p>Registernummer: HRB 34954</p>
+        <p>Registergericht: {court}</p>
+        <p>Registernummer: {number}</p>
       </section>
 
       <section className="legal__block">
         <h2>Umsatzsteuer-ID</h2>
-        <p>DE452984801</p>
+        <p>{company.vatId}</p>
       </section>
 
       <section className="legal__block">
         <h2>Vertreten durch</h2>
-        <p>Hebun Deniz</p>
+        <p>{company.manager}</p>
       </section>
 
       <section className="legal__block">
@@ -63,8 +59,8 @@ export default function ImpressumPage() {
         </p>
       </section>
 
-      <Link className="btn btn--ghost legal__back" href="/">
-        <span className="btn__label">Zur Startseite</span> <span className="btn__arrow" aria-hidden="true">→</span>
+      <Link className="legal__back" href="/">
+        ← Zur Startseite
       </Link>
     </article>
   );
