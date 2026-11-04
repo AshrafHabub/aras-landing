@@ -20,7 +20,11 @@ export const company = {
   vatId: "DE452984801",
   register: "Amtsgericht Dortmund, HRB 34954",
   manager: "Hebun Deniz",
-  mapsUrl: "https://www.google.com/maps/search/?api=1&query=Eisenh%C3%BCttenweg+9A,+44145+Dortmund",
+  mapsUrl:
+    "https://www.google.com/maps/place/Aras+GmbH+Gro%C3%9Fhandel+%26+Einzelhandel/@51.5371036,7.4714343,17z/data=!3m1!4b1!4m6!3m5!1s0x47b9177381bd8ec7:0x3d0e7708d0b6cbf!8m2!3d51.5371036!4d7.4714343!16s%2Fg%2F11h15wvpf7",
+  mapsCid: "https://maps.google.com/?cid=274974047858289855",
+  geo: { lat: 51.5371036, lng: 7.4714343 },
+  district: "Dortmund-Innenstadt-Nord",
 } as const;
 
 // Werbeaussagen: Zahlen vor dem Livegang prüfen (UWG, irreführende Werbung).
